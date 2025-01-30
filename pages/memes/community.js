@@ -16,15 +16,28 @@ const CommunityMemes = ({ onExpandMeme = () => {} }) => {
   }, [])
 
   const getMemes = async () => {
-    const columns = isMobile ? 2 : 5
-    const communityMemes = await getCommunityMemes()
-    const formattedMemes = splitIntoColumns(communityMemes, columns)
-    setMemes(formattedMemes)
-    setLoading(false)
+    try {
+      setLoading(true)
+      const columns = isMobile ? 2 : 5
+      const communityMemes = await getCommunityMemes()
+      
+      // Sort memes by creation date, newest first
+      const sortedMemes = communityMemes.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at)
+      })
+      
+      const formattedMemes = splitIntoColumns(sortedMemes, columns)
+      setMemes(formattedMemes)
+    } catch (error) {
+      console.error('Error fetching memes:', error)
+      // You could add a toast notification here if you want to show errors to users
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <div className="relative px-4 py-10" style={{ height: 'calc(100vh - 64px)' }}>
+    <div className="relative px-4 py-10 bg-hero-pattern min-h-screen font-doodle">
       <div className="max-w-screen-xl h-full mx-auto flex flex-col space-y-4">
         {loading ? (
           <div className="w-full h-full flex flex-col items-center justify-center space-y-4">
@@ -44,7 +57,7 @@ const CommunityMemes = ({ onExpandMeme = () => {} }) => {
                 {R.pathOr([], [0], memes).length > 0 && (
                   <Button>
                     <Link href="/">
-                      <a>{isMobile ? 'Make memes!' : 'Make your own memes!'}</a>
+                      {isMobile ? 'Make memes!' : 'Make your own memes!'}
                     </Link>
                   </Button>
                 )}

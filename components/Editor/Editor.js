@@ -42,6 +42,7 @@ import { createClient } from '@supabase/supabase-js'
 
 const TEMPLATES_BUCKET = process.env.NEXT_PUBLIC_SUPABASE_TEMPLATES_BUCKET
 const STICKERS_BUCKET = process.env.NEXT_PUBLIC_SUPABASE_STICKERS_BUCKET
+const MEMES_BUCKET = process.env.NEXT_PUBLIC_SUPABASE_MEMES_BUCKET
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -528,6 +529,43 @@ const Editor = ({
     }
   }
 
+  const saveMemeToSupabase = async () => {
+    if (!editorRef.current) return
+
+    try {
+      // Convert canvas to file
+      const dataUrl = editorRef.current.toDataURL('image/png')
+      const file = dataURLtoFile(dataUrl, `meme-${Date.now()}.png`)
+      
+      // Upload to Supabase storage in public folder
+      const path = await uploadFile(file, user, MEMES_BUCKET, 'public')
+      
+      // Save metadata to database
+      const { data, error } = await supabase
+        .from('memes')
+        .insert([
+          {
+            user_id: user?.id || null,
+            path: path,
+            json: getCanvasJson(editorRef.current),
+            is_public: true,
+            created_at: new Date().toISOString()
+          }
+        ])
+        .select()
+
+      if (error) {
+        console.error('Database error:', error)
+        throw error
+      }
+      
+      toast.success('Meme saved successfully!')
+    } catch (error) {
+      console.error('Error saving meme:', error)
+      toast.error(error.message || 'Failed to save meme')
+    }
+  }
+
   return (
     <div className="flex flex-col items-center space-y-3">
       {error && (
@@ -632,13 +670,20 @@ const Editor = ({
       </div>
 
       {!isCanvasEmpty && (
-        <div className="w-full flex items-center justify-end">
+        <div className="w-full flex items-center justify-end space-x-2">
           <Button
             type="primary"
             icon={<IconImage />}
             onClick={onExportCanvas}
           >
             Export as PNG
+          </Button>
+          <Button
+            type="default"
+            icon={<IconSave />}
+            onClick={saveMemeToSupabase}
+          >
+            Save Meme
           </Button>
         </div>
       )}

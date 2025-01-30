@@ -1,11 +1,12 @@
 import { Typography } from '@supabase/ui'
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from '@supabase/ui'
 import { IconImage } from '@supabase/ui'
 
 const StickersPanel = ({ stickers, onStickerSelect, visible, onUploadSticker }) => {
   const fileInputRef = useRef(null)
+  const [searchTerm, setSearchTerm] = useState('')
   
   if (!visible) return null
 
@@ -22,11 +23,22 @@ const StickersPanel = ({ stickers, onStickerSelect, visible, onUploadSticker }) 
     }
   }
 
+  const filteredStickers = stickers?.filter(sticker => 
+    sticker.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   return (
     <div className="border border-gray-500 rounded-lg mt-4 p-4 z-50 w-[800px] max-h-[500px] overflow-hidden flex flex-col">
       <div className="flex justify-between items-center mb-2">
         <Typography.Text>Stickers</Typography.Text>
-        <div>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search"
+            className="px-2 py-1 text-black text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
           <input
             type="file"
             ref={fileInputRef}
@@ -45,7 +57,7 @@ const StickersPanel = ({ stickers, onStickerSelect, visible, onUploadSticker }) 
         </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3 overflow-y-auto pb-2 flex-1" role="list">
-        {stickers?.map((sticker, index) => {
+        {filteredStickers?.map((sticker, index) => {
           return (
             <div
               key={index}

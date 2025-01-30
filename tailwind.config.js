@@ -191,6 +191,7 @@ module.exports = {
       },
     },
     fontFamily: {
+      doodle: ['Doodle'],
       sans: [
         'Plus Jakarta Sans',
         'BlinkMacSystemFont',

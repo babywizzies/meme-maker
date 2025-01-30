@@ -18,14 +18,18 @@ const MAX_TEMPLATE_NAME_LENGTH = 100
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-export const uploadFile = async (file, user, bucket) => {
+export const uploadFile = async (file, user, bucket, folder = null) => {
   if (!file) throw new Error('File is required')
   if (!bucket) throw new Error('Bucket is required')
 
   try {
     const fileExt = file.name.split('.').pop()
     const fileName = `${v4()}-${Date.now()}.${fileExt}`
-    const filePath = user ? `${user.id}/${fileName}` : `public/${fileName}`
+    const filePath = folder 
+      ? `${folder}/${fileName}`
+      : user 
+        ? `${user.id}/${fileName}` 
+        : fileName
 
     const { error: uploadError } = await supabase.storage
       .from(bucket)
@@ -172,19 +176,42 @@ export const saveDefaultTemplate = async (name, json, path) => {
 }
 
 export const getCommunityMemes = async () => {
-  const { data } = await supabase
-    .from('memes')
-    .select()
-    .is('is_public', true)
-    .is('deleted_at', null)
-    .limit(DEFAULT_LIMIT)
-  const res = await Promise.all(
-    data.map(async (meme) => {
-      const signedUrl = await getSignedUrl(MEMES_BUCKET, meme.path)
-      return { ...meme, url: signedUrl }
-    })
-  )
-  return res
+  try {
+    const { data, error } = await supabase
+      .from('memes')
+      .select()
+      .is('is_public', true)
+      .is('deleted_at', null)
+      .order('created_at', { ascending: false })
+      .limit(DEFAULT_LIMIT)
+
+    if (error) {
+      console.error('Error fetching memes:', error)
+      return []
+    }
+
+    if (!data) {
+      return []
+    }
+
+    const memesWithUrls = await Promise.all(
+      data.map(async (meme) => {
+        try {
+          const signedUrl = await getSignedUrl(MEMES_BUCKET, meme.path)
+          return { ...meme, url: signedUrl }
+        } catch (err) {
+          console.error('Error getting signed URL for meme:', meme.id, err)
+          return null
+        }
+      })
+    )
+
+    // Filter out any null results from failed URL signing
+    return memesWithUrls.filter(Boolean)
+  } catch (error) {
+    console.error('Failed to get community memes:', error)
+    return []
+  }
 }
 
 export const resignTemplateUrls = async (template) => {

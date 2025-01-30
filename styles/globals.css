@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Doodle';
+  src: url('/fonts/doodle.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .fontSizeInput > .sbui-formlayout {
   gap: 0rem;
 }

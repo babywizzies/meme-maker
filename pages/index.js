@@ -206,7 +206,7 @@ const Home = ({ user }) => {
 
   return (
     <>
-      <div className="relative bg-hero-pattern bg-cover bg-center overflow-hidden flex min-h-screen p-8 ">
+      <div className="relative bg-hero-pattern bg-cover bg-center overflow-hidden flex min-h-screen p-8 font-doodle">
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
             <span className="block sm:inline">{error}</span>
@@ -215,11 +215,12 @@ const Home = ({ user }) => {
         <div className="max-w-screen-xl mx-auto flex-grow flex flex-col">
           <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-20 text-center text-white">
             <div className="pt-4 mb-4 sm:pt-6 sm:mb-2">
+              <img src="/img/MLG_LOGO.jpg" alt="Meme maker by $MLG" className="w-24 mb-4 rounded-xl mx-auto" />
               <Typography.Title
                 className="hidden sm:block font-medium bg-center bg-no-repeat bg-cover"
                 level={2}
               >
-                Create your{' '}
+                Meme maker by{' '}
                 <span
                   className="bg-center bg-no-repeat bg-cover"
                   style={{
@@ -230,9 +231,8 @@ const Home = ({ user }) => {
                       "url('https://i.giphy.com/media/2tNvsKkc0qFdNhJmKk/giphy.webp')",
                   }}
                 >
-                  best memes
+                  $MLG
                 </span>{' '}
-                within seconds
               </Typography.Title>
               <Typography.Title
                 className="sm:hidden font-medium bg-center bg-no-repeat bg-cover"
@@ -257,7 +257,14 @@ const Home = ({ user }) => {
             </div>
             <div className="pb-4 hidden sm:block">
               <Typography>
-                Here at Supabase we love memes - and so here's a meme maker 💚
+                Visit the community meme! Click <a href="/memes/community" className="bg-center bg-no-repeat bg-cover"
+                  style={{
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                    backgroundImage:
+                      "url('https://i.giphy.com/media/2tNvsKkc0qFdNhJmKk/giphy.webp')",
+                  }}>here</a>!
               </Typography>
             </div>
             {typeof window !== 'undefined' && (

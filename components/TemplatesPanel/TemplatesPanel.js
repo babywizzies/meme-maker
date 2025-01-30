@@ -49,11 +49,12 @@ const TemplatesPanel = ({
     <SidePanel
       hideFooter
       title="Select a template"
+      className="font-doodle"
       description="Choose from our list of templates or upload your own!"
       visible={visible}
       onCancel={hideTemplatesPanel}
     >
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full font-doodle">
         <div className="hidden">
           <input
             ref={uploadButtonRef}
