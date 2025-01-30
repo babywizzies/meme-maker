@@ -5,10 +5,10 @@ import React, { useEffect, useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast'
 import * as Portal from '@radix-ui/react-portal'
 import { IdProvider } from '@radix-ui/react-id'
-
+import { IconGitHub, Typography } from '@supabase/ui'
 import Header from '../components/Header/Header'
 import ExpandMemeModal from '../components/ExpandMemeModal/ExpandMemeModal'
-import { IconGitHub, Typography } from '@/ui'
+
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -25,26 +25,26 @@ function MyApp({ Component, pageProps }) {
     <IdProvider>
       <div className="relative bg-[url(/img/bg.png)] bg-cover bg-center">
         <Head>
-          <title>Meme Maker | </title>
-          <meta property="og:title" content="Meme Maker | Powered by " />
+          <title>Meme Maker | Supabase</title>
+          <meta property="og:title" content="MLG Meme Maker" />
           <meta
             property="og:description"
-            content="Create your best memes in seconds with this simple canvas editor."
+            content="Create your best memes in seconds."
           />
           <meta
             property="og:image"
-            content="https://mfrkmguhoejspftfvgdz..in/storage/v1/object/public/og-assets/og-image.png"
+            content="https://bmtrdqbewjmochuaayqp.supabase.co/storage/v1/object/sign/memes/public/20ee5fda-4d7d-44df-a950-a0fe548e52bf-1738276101126.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJtZW1lcy9wdWJsaWMvMjBlZTVmZGEtNGQ3ZC00NGRmLWE5NTAtYTBmZTU0OGU1MmJmLTE3MzgyNzYxMDExMjYucG5nIiwiaWF0IjoxNzM4Mjc4MzU1LCJleHAiOjIwNTM2MzgzNTV9.ApDJcXo1DYYDEoOE5G6_P3xYxr9opWmqzoAjtOqrJf0"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:creator" content="joshenlimek" />
-          <meta name="twitter:title" content="Meme Maker | Powered by " />
+          <meta name="twitter:title" content="Meme Maker | Powered by Supabase" />
           <meta
             name="twitter:description"
-            content="Create your best memes in seconds with this simple canvas editor."
+            content="Create your best memes in seconds."
           />
           <meta
             name="twitter:image"
-            content="https://mfrkmguhoejspftfvgdz..in/storage/v1/object/public/og-assets/og-image.png"
+            content="https://bmtrdqbewjmochuaayqp.supabase.co/storage/v1/object/sign/memes/public/20ee5fda-4d7d-44df-a950-a0fe548e52bf-1738276101126.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJtZW1lcy9wdWJsaWMvMjBlZTVmZGEtNGQ3ZC00NGRmLWE5NTAtYTBmZTU0OGU1MmJmLTE3MzgyNzYxMDExMjYucG5nIiwiaWF0IjoxNzM4Mjc4MzU1LCJleHAiOjIwNTM2MzgzNTV9.ApDJcXo1DYYDEoOE5G6_P3xYxr9opWmqzoAjtOqrJf0"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
