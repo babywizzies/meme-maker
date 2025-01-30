@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }) {
           />
           <meta
             property="og:image"
-            content="https://bmtrdqbewjmochuaayqp.supabase.co/storage/v1/object/sign/memes/public/20ee5fda-4d7d-44df-a950-a0fe548e52bf-1738276101126.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJtZW1lcy9wdWJsaWMvMjBlZTVmZGEtNGQ3ZC00NGRmLWE5NTAtYTBmZTU0OGU1MmJmLTE3MzgyNzYxMDExMjYucG5nIiwiaWF0IjoxNzM4Mjc4MzU1LCJleHAiOjIwNTM2MzgzNTV9.ApDJcXo1DYYDEoOE5G6_P3xYxr9opWmqzoAjtOqrJf0"
+            content="https://mfrkmguhoejspftfvgdz.supabase.in/storage/v1/object/public/og-assets/og-image.png"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:creator" content="joshenlimek" />
@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }) {
           />
           <meta
             name="twitter:image"
-            content="https://bmtrdqbewjmochuaayqp.supabase.co/storage/v1/object/sign/memes/public/20ee5fda-4d7d-44df-a950-a0fe548e52bf-1738276101126.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJtZW1lcy9wdWJsaWMvMjBlZTVmZGEtNGQ3ZC00NGRmLWE5NTAtYTBmZTU0OGU1MmJmLTE3MzgyNzYxMDExMjYucG5nIiwiaWF0IjoxNzM4Mjc4MzU1LCJleHAiOjIwNTM2MzgzNTV9.ApDJcXo1DYYDEoOE5G6_P3xYxr9opWmqzoAjtOqrJf0"
+            content="https://mfrkmguhoejspftfvgdz.supabase.in/storage/v1/object/public/og-assets/og-image.png"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
