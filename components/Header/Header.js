@@ -16,9 +16,7 @@ const Header = ({ user, isAdmin = false, onSelectLogOut = () => {}, onSelectLogI
     <div className="flex items-center w-full h-16 border-b border-gray-600 px-4">
       <div className="max-w-screen-xl w-full flex items-center justify-between mx-auto">
         <Link href="/">
-          <a>
             <img className="h-5 w-auto" src="/img/logo.svg" alt="" />
-          </a>
         </Link>
         <div className="flex items-center space-x-4 sm:space-x-6">
           {user && (
@@ -35,18 +33,16 @@ const Header = ({ user, isAdmin = false, onSelectLogOut = () => {}, onSelectLogI
             overlay={[
               <div key="saved-memes" className="hover:bg-gray-800" onClick={closeDropdown}>
                 <Link href="/memes/user">
-                  <a>
                     <Dropdown.Misc>
                       <Typography.Text small>Your saved memes</Typography.Text>
                     </Dropdown.Misc>
-                  </a>
                 </Link>
               </div>,
               <div key="community-memes" className="hover:bg-gray-800">
                 <Dropdown.Misc>
                   <Typography.Text small>
                     <Link href="/memes/community">
-                      <a>Community memes</a>
+                      Community memes
                     </Link>
                   </Typography.Text>
                 </Dropdown.Misc>
