@@ -8,7 +8,7 @@ import { IdProvider } from '@radix-ui/react-id'
 
 import Header from '../components/Header/Header'
 import ExpandMemeModal from '../components/ExpandMemeModal/ExpandMemeModal'
-import { IconGitHub, Typography } from '@supabase/ui'
+import { IconGitHub, Typography } from '@/ui'
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -25,26 +25,26 @@ function MyApp({ Component, pageProps }) {
     <IdProvider>
       <div className="relative bg-[url(/img/bg.png)] bg-cover bg-center">
         <Head>
-          <title>Meme Maker | Supabase</title>
-          <meta property="og:title" content="Meme Maker | Powered by Supabase" />
+          <title>Meme Maker | </title>
+          <meta property="og:title" content="Meme Maker | Powered by " />
           <meta
             property="og:description"
             content="Create your best memes in seconds with this simple canvas editor."
           />
           <meta
             property="og:image"
-            content="https://mfrkmguhoejspftfvgdz.supabase.in/storage/v1/object/public/og-assets/og-image.png"
+            content="https://mfrkmguhoejspftfvgdz..in/storage/v1/object/public/og-assets/og-image.png"
           />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:creator" content="joshenlimek" />
-          <meta name="twitter:title" content="Meme Maker | Powered by Supabase" />
+          <meta name="twitter:title" content="Meme Maker | Powered by " />
           <meta
             name="twitter:description"
             content="Create your best memes in seconds with this simple canvas editor."
           />
           <meta
             name="twitter:image"
-            content="https://mfrkmguhoejspftfvgdz.supabase.in/storage/v1/object/public/og-assets/og-image.png"
+            content="https://mfrkmguhoejspftfvgdz..in/storage/v1/object/public/og-assets/og-image.png"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>

@@ -1,0 +1,95 @@
+import { promises as fs } from 'fs';
+import * as path from 'path';
+
+/**
+ * Recursively renames files in "rootDir" so that:
+ *   1. All '$' chars are removed from folder and file names.
+ *   2. All spaces become underscores.
+ *   3. If a file name already starts with the folder prefix (case-insensitive),
+ *      remove that prefix before re-prefixing to avoid duplicates.
+ *   4. No double underscores (any leading '_' after removing the prefix is trimmed).
+ *
+ * Resulting file name pattern: <folderPrefix>_<cleanedFileName>.
+ */
+async function renameFilesInDirectory(rootDir: string): Promise<void> {
+  const entries = await fs.readdir(rootDir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      // 1) Clean the folder name to form "folderPrefix"
+      let folderPrefix = entry.name
+        .replace(/\$/g, '')     // remove all '$'
+        .replace(/\s+/g, '_')   // replace spaces with underscores
+        .replace(/^_+/, '');    // remove leading underscores if any
+
+      // If the folder name is entirely "$" or empty after cleaning, fallback:
+      if (!folderPrefix) {
+        folderPrefix = 'FOLDER';
+      }
+
+      const folderPath = path.join(rootDir, entry.name);
+      const subEntries = await fs.readdir(folderPath, { withFileTypes: true });
+
+      for (const subEntry of subEntries) {
+        if (subEntry.isFile()) {
+          const oldFileName = subEntry.name;
+
+          // 2) Clean the file name
+          //    - remove $, replace spaces, remove leading underscores
+          let cleanedFileName = oldFileName
+            .replace(/\$/g, '')
+            .replace(/\s+/g, '_')
+            .replace(/^_+/, '');
+
+          // 3) Check if cleanedFileName already starts with folderPrefix (case-insensitive)
+          //    e.g. folderPrefix = "BALD", fileName = "BALD_COIN_LOGO.png" or "baldCOIN_LOGO.png"
+          //    We'll strip that from the start to avoid duplication.
+          const lowerPrefix = folderPrefix.toLowerCase();
+          const lowerFileName = cleanedFileName.toLowerCase();
+
+          if (lowerFileName.startsWith(lowerPrefix)) {
+            // Possibly the file name starts with "BALD" or "BALD_"
+            // Let's see if it has an underscore or not after the prefix
+            const afterPrefix = cleanedFileName.slice(folderPrefix.length);
+            // e.g. if cleanedFileName is "BALD_COIN_LOGO.png",
+            // afterPrefix is "_COIN_LOGO.png"
+
+            // Remove that substring from the start
+            cleanedFileName = afterPrefix.replace(/^_+/, ''); 
+            // e.g. remove leading underscores after prefix
+          }
+
+          // 4) Finally, build the new file name
+          const newFileName = `${folderPrefix}_${cleanedFileName}`;
+
+          // 5) Perform rename
+          const oldFilePath = path.join(folderPath, oldFileName);
+          const newFilePath = path.join(folderPath, newFileName);
+
+          try {
+            await fs.rename(oldFilePath, newFilePath);
+            console.log(`Renamed: ${oldFileName} → ${newFileName}`);
+          } catch (err) {
+            console.error(`Error renaming "${oldFilePath}":`, err);
+          }
+        } else if (subEntry.isDirectory()) {
+          // Recurse for nested directories
+          await renameFilesInDirectory(path.join(folderPath, subEntry.name));
+        }
+      }
+    }
+  }
+}
+
+async function main() {
+  try {
+    // Point this to your Sticker folder
+    const rootDir = '/Users/t3rpz/Downloads/Sticker';
+    await renameFilesInDirectory(rootDir);
+    console.log('Renaming complete!');
+  } catch (error) {
+    console.error('Error during renaming:', error);
+  }
+}
+
+main().catch(console.error);
