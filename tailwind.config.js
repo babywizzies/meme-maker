@@ -185,6 +185,10 @@ module.exports = {
           dark: gray[500],
         },
       },
+      backgroundImage: {
+        'hero-pattern': "url('/img/bg.png')",
+        'footer-texture': "url('/img/footer-texture.png')",
+      },
     },
     fontFamily: {
       sans: [

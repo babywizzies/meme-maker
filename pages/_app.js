@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <IdProvider>
-      <div className="bg-gray-800 relative">
+      <div className="relative bg-[url(/img/bg.png)] bg-cover bg-center ">
         <Head>
           <title>Meme Maker | Supabase</title>
           <meta property="og:title" content="Meme Maker | Powered by Supabase" />

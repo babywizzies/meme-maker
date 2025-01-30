@@ -23,7 +23,7 @@ const StickersPanel = ({ stickers, onStickerSelect, visible, onUploadSticker }) 
   }
 
   return (
-    <div className="border  border-gray-500 rounded-lg mt-4 p-4 z-50 w-[800px]">
+    <div className="border border-gray-500 rounded-lg mt-4 p-4 z-50 w-[800px] max-h-[500px] overflow-hidden flex flex-col">
       <div className="flex justify-between items-center mb-2">
         <Typography.Text>Stickers</Typography.Text>
         <div>
@@ -44,7 +44,7 @@ const StickersPanel = ({ stickers, onStickerSelect, visible, onUploadSticker }) 
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3 overflow-x-auto pb-2" role="list">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3 overflow-y-auto pb-2 flex-1" role="list">
         {stickers?.map((sticker, index) => {
           return (
             <div
